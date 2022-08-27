@@ -1,5 +1,8 @@
-## Sahaj Banking Project
+## Sahaj Banking Project | Coding Assignment | Aditya Mahajan
 
+## How to run?
+* The MainController class acts like a Driver/Main class which routes the commands to appropriate controllers.
+* Run the MainControllerTest class to verify output or you can also run the entire test suite.
 
 ## Problem Statement
 A new payment bank wants to implement its banking solution. Payments banks have a
