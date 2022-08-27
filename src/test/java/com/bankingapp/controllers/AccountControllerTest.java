@@ -44,7 +44,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    void verifyCreateAccount_ServiceThrowsException_ShouldReturnFailedResponse() {
+    void verifyCreateAccount_ServiceThrowsException_ShouldReturnFailedResponseWithError() {
         //Given
         String holderName = "James";
         String errorMessage = "sample";
@@ -76,7 +76,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    void verifyCheckBalance_ServiceThrowsException_ShouldReturnFailedResponse() {
+    void verifyCheckBalance_ServiceThrowsException_ShouldReturnFailedResponseWithError() {
         //Given
         Long accountNumber = 100L;
         String errorMessage = "sample";

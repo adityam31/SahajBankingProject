@@ -4,6 +4,7 @@ import com.bankingapp.utils.TestUtility;
 import com.bankingapp.utils.di.BindingModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -14,6 +15,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Order(1)
 public class MainControllerTest {
     private MainController mainController;
 

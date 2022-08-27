@@ -1,8 +1,10 @@
 1001
 1002
+1003
 0.0
 0.0
-Account 1003 does not exist
+0.0
+Account 1004 does not exist
 500.0
 1500.0
 Minimum deposit amount is 500.0 for account 1001
@@ -10,12 +12,12 @@ Maximum deposit amount is 50000.0 for account 1001
 11500.0
 Only 3 deposits are allowed in a day for account 1001
 11500.0
+5000.0
 Minimum withdrawal amount is 1000.0 for account 1001
 Insufficient funds to perform the transaction for account 1001
 10500.0
 8600.0
 7600.0
 Only 3 withdrawals are allowed in a day for account 1001
-Only 3 withdrawals are allowed in a day for account 1001
 Minimum withdrawal amount is 1000.0 for account 1002
-Maximum withdrawal amount is 25000.0 for account 1002
+Successful
