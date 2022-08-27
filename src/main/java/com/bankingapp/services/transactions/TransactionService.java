@@ -1,7 +1,6 @@
 package com.bankingapp.services.transactions;
 
 import com.bankingapp.models.Transaction;
-import com.bankingapp.models.request.TransactionRequest;
 
 public interface TransactionService {
     Transaction deposit(Long accountNumber, Double amount);

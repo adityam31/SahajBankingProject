@@ -1,20 +1,18 @@
 package com.bankingapp.models;
 
 import com.bankingapp.models.enums.TransactionType;
-import com.bankingapp.models.request.TransactionRequest;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 @Getter
 @Setter
-public class Transaction {
-
+public class Transaction implements Comparable<Transaction> {
     private Long transactionId;
     private Long accountNumber;
     private Double amount;
-
     private Double resultantBalance;
     private TransactionType transactionType;
     private LocalDate transactionDate;
@@ -31,10 +29,41 @@ public class Transaction {
         return new Transaction(accountNumber, amount, transactionType, transactionDate);
     }
 
-    public static Transaction fromTransactionRequest(TransactionRequest transactionRequest,
-                                                     TransactionType transactionType) {
-        return new Transaction(transactionRequest.getAccountOne(), transactionRequest.getAmount(),
-                transactionType, LocalDate.now());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transaction)) return false;
+
+        Transaction that = (Transaction) o;
+
+        if (!Objects.equals(transactionId, that.transactionId))
+            return false;
+        if (!accountNumber.equals(that.accountNumber)) return false;
+        return transactionType == that.transactionType;
     }
 
+    @Override
+    public int hashCode() {
+        int result = transactionId != null ? transactionId.hashCode() : 0;
+        result = 31 * result + accountNumber.hashCode();
+        result = 31 * result + transactionType.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transactionId=" + transactionId +
+                ", accountNumber=" + accountNumber +
+                ", amount=" + amount +
+                ", resultantBalance=" + resultantBalance +
+                ", transactionType=" + transactionType +
+                ", transactionDate=" + transactionDate +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Transaction o) {
+        return Long.compare(transactionId, o.transactionId);
+    }
 }

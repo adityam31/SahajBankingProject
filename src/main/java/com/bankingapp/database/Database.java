@@ -41,10 +41,6 @@ public class Database {
         return account;
     }
 
-    public synchronized Account updateAccount(Account account) {
-        return accounts.getOrDefault(account.getAccountNumber(), account);
-    }
-
     public Transaction depositAmount(Long accountNumber, Double amount) {
         Account account = accounts.get(accountNumber);
         Transaction transaction = Transaction.createTransaction(accountNumber, amount,
@@ -82,18 +78,6 @@ public class Database {
         }
 
         return transaction;
-    }
-
-    public List<Transaction> getAllDeposits() {
-        return transactions.values().stream()
-                .filter(transaction -> transaction.getTransactionType() == TransactionType.DEPOSIT)
-                .collect(Collectors.toList());
-    }
-
-    public List<Transaction> getAllWithdrawals() {
-        return transactions.values().stream()
-                .filter(transaction -> transaction.getTransactionType() == TransactionType.WITHDRAWAL)
-                .collect(Collectors.toList());
     }
 
     public List<Transaction> getHolderDepositsForTheDay(Long accountNumber) {

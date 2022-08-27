@@ -18,7 +18,7 @@ public class DepositExecutor extends TransactionExecutor {
     @Override
     protected void validateRequest(Long accountNumber, Double amount) {
         if(Objects.isNull(accountNumber) || Objects.isNull(amount))
-            throw new ValidationException(Messages.TRANSACTION_REQUEST_INVALID);
+            throw new ValidationException(Messages.INVALID_INPUT);
 
         Optional<Account> accountOptional = database.getAccountByNumber(accountNumber);
 

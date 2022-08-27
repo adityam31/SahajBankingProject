@@ -15,19 +15,19 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction deposit(Long accountNumber, Double amount) {
-        return doAction(accountNumber, amount, depositExecutor);
+        return doAction(depositExecutor, accountNumber, amount);
     }
 
     public Transaction withdraw(Long accountNumber, Double amount) {
-        return doAction(accountNumber, amount, withdrawalExecutor);
+        return doAction(withdrawalExecutor, accountNumber, amount);
     }
 
     public void transfer(Long senderAccountNumber, Long receiverAccountNumber, Double amount) {
-        doAction(senderAccountNumber, amount, withdrawalExecutor);
-        doAction(receiverAccountNumber, amount, depositExecutor);
+        doAction(withdrawalExecutor, senderAccountNumber, amount);
+        doAction(depositExecutor, receiverAccountNumber, amount);
     }
 
-    private Transaction doAction(Long accountNumber, Double amount, TransactionExecutor executor) {
+    private Transaction doAction(TransactionExecutor executor, Long accountNumber, Double amount) {
         return executor.transact(accountNumber, amount);
     }
 }

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class Account {
+public class Account implements Comparable<Account> {
     private Long accountNumber;
     private String holderName;
     private Double balance;
@@ -35,5 +35,19 @@ public class Account {
         int result = accountNumber != null ? accountNumber.hashCode() : 0;
         result = 31 * result + holderName.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountNumber=" + accountNumber +
+                ", holderName='" + holderName + '\'' +
+                ", balance=" + balance +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Account o) {
+        return Long.compare(accountNumber, o.accountNumber);
     }
 }
