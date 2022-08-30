@@ -1,0 +1,1 @@
+RANDOM  1234    ABCD    1234

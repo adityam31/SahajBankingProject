@@ -3,6 +3,7 @@ package com.bankingapp.database;
 import com.bankingapp.models.Account;
 import com.bankingapp.models.Transaction;
 import com.bankingapp.models.enums.TransactionType;
+import com.bankingapp.utils.exceptions.ValidationException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -123,6 +124,32 @@ public class DatabaseTest {
         assertNotNull(actualList);
         assertEquals(eachTransactionCount, actualList.size());
         assertEquals(expectedList, actualList);
+    }
+
+    @Test
+    void verifyDepositAccount_BalanceGreaterThanUpperLimit_ShouldThrowException() {
+        //Given
+        String holderName = "Adam";
+        Double amount = 500000D;
+        Account account = database.createAccount(holderName);
+
+        //When and Then
+        assertThrows(ValidationException.class,
+                () -> database.depositAmount(account.getAccountNumber(), amount),
+                Messages.MAX_ACCOUNT_BALANCE_MSG);
+    }
+
+    @Test
+    void verifyWithdrawAccount_BalanceLowerThanLowerLimit_ShouldThrowException() {
+        //Given
+        String holderName = "Adam";
+        Double amount = 5000D;
+        Account account = database.createAccount(holderName);
+
+        //When and Then
+        assertThrows(ValidationException.class,
+                () -> database.withdrawAmount(account.getAccountNumber(), amount),
+                Messages.INSUFFICIENT_FUNDS);
     }
 
 

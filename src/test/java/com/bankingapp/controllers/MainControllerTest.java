@@ -1,6 +1,7 @@
 package com.bankingapp.controllers;
 
 import com.bankingapp.utils.TestUtility;
+import com.bankingapp.utils.constants.Constants;
 import com.bankingapp.utils.di.BindingModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -13,7 +14,7 @@ import java.io.File;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Order(1)
 public class MainControllerTest {
@@ -26,8 +27,9 @@ public class MainControllerTest {
 
 
     @ParameterizedTest
-    @MethodSource("getTestFiles")
-    void testPerform(String inputFilePath, String outputFilePath) throws Exception {
+    @MethodSource("getValidTestFiles")
+    void verifyPerform_ValidInput_ShouldMatchTheExpectedOutputInFile(String inputFilePath,
+                                                                     String outputFilePath) throws Exception {
         //Given
         File inputFile = new File(getClass().getClassLoader().getResource(inputFilePath).toURI());
         File outputFile = new File(getClass().getClassLoader().getResource(outputFilePath).toURI());
@@ -41,10 +43,33 @@ public class MainControllerTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
-    private static Stream<Arguments> getTestFiles() {
+    @ParameterizedTest
+    @MethodSource("getInvalidTestFiles")
+    void verifyPerform_ValidInput_ShouldMatchTheExpectedOutputInFile(String inputFilePath) throws Exception {
+        //Given
+        File inputFile = new File(getClass().getClassLoader().getResource(inputFilePath).toURI());
+
+        //When
+        List<String> actualOutput = mainController.perform(inputFile);
+        displayOutput(actualOutput, "Actual Output");
+
+        //Then
+        assertNotNull(actualOutput);
+        assertFalse(actualOutput.isEmpty());
+        assertTrue(actualOutput.get(0).equals(Constants.Messages.COMMAND_INVALID));
+
+    }
+
+    private static Stream<Arguments> getValidTestFiles() {
         return Stream.of(
                 Arguments.of("SampleInputFiles/Sample1.txt",
                         "SampleOutputFiles/Output1.txt")
+        );
+    }
+
+    private static Stream<Arguments> getInvalidTestFiles() {
+        return Stream.of(
+                Arguments.of("SampleInputFiles/SampleErr1.txt")
         );
     }
 
